@@ -9,6 +9,14 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" integrity="sha512-dTfge/zgoMYpP7QbHy4gWMEGsbsdZeCXz7irItjcC3sPUFtf0kuFbDz/ixG7ArTxmDjLXDmezHubeNikyKGVyQ==" crossorigin="anonymous">
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js" integrity="sha512-K1qjQ+NcF2TYO/eI3M6v8EiNYZfA95pQumfvcVrTHtwQVDG+aHRqLi/ETn2uB+1JqwYqVG3LIvdm9lj6imS/pQ==" crossorigin="anonymous"></script>
     <style>
+    	#register {
+    		margin-right: 8px;
+    		width: 100px;
+    	}
+    	#submit {
+    		margin-left: 8px;
+    		width: 100px;
+    	}
     	.input-group {
     		max-width: 300px;
     		padding: 5px;
@@ -75,7 +83,21 @@
     		var token = $("#token").val();
     		$.post("/login", {_token:token, username:username, password:password}, function(result) {
     			if(result) {
-    				console.log(result);
+    				$(".input-group").show();
+    				$(".spinner").hide();
+    				$(".alert").show();
+    			}
+    		});
+    	});
+
+		$("#register").click(function() {
+    		$(".input-group").hide();
+    		$(".spinner").show();
+    		var username = $("#user").val();
+    		var password = $("#pass").val();
+    		var token = $("#token").val();
+    		$.post("/register", {_token:token, username:username, password:password}, function(result) {
+    			if(result) {
     				$(".input-group").show();
     				$(".spinner").hide();
     				$(".alert").show();
@@ -115,6 +137,7 @@
 						</div>
 						<input type="hidden" id="token" value="{{ csrf_token() }}">
 						<p class="input-group" style="padding-top: 10px;">
+							<button id="register" type="button" class="btn btn-primary btn-lg">Register</button>
 	  						<button id="submit" type="button" class="btn btn-primary btn-lg">Sign In</button>
   							<div class="spinner" style="display: none;">
 							  <div class="double-bounce1"></div>
