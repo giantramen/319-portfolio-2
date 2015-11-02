@@ -22,13 +22,14 @@ Route::get('/start', function() {
     return view('start');
 });
 
+Route::get('/lobbies', function() {
+    return view('lobbies');
+});
+
 Route::bind('players', function($value, $route) {
 	return App\Players::whereSlug($value)->first();
 });
 
-Route::bind('lobbies', function($value, $route) {
-	return App\Lobbies::whereSlug($value)->first();
-});
 
 Route::post('/login', function() {
 	$username = Input::get('username');
@@ -38,8 +39,9 @@ Route::post('/login', function() {
 		sleep(1);
     	echo 1;
 	} else {
-		//start session or whatever
-		//return Redirect::route('/');
+		//session_start();
+		//$_SESSION["userID"] = $exists->ID;
+		return view('lobbies');
 	}
 });
 
@@ -49,8 +51,9 @@ Route::post('/register', function() {
 	$exists = DB::table('users')->where('username', $username)->first();
 	if(is_null($exists)) {
 		DB::table('users')->insert(['username' => $username, 'password' => $password]);
-		//start session or whatever
-		//return Redirect::route('/');
+		session_start();
+		$_SESSION["userID"] = $exists->ID;
+		return Redirect::route('/lobbies');
 	} else {
 		sleep(1);
     	echo 1;
