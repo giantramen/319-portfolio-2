@@ -10,6 +10,7 @@
 | and give it the controller to call when that URI is requested.
 |
 */
+Route::model('players', 'Player');
 
 Route::get('/', function () {
     return view('welcome');
@@ -17,6 +18,10 @@ Route::get('/', function () {
 
 Route::get('/start', function() {
     return view('start');
+});
+
+Route::bind('players', function($value, $route) {
+	return App\Players::whereSlug($value)->first();
 });
 
 Route::post('/login', function() {
