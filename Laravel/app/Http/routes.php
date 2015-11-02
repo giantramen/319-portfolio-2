@@ -31,3 +31,5 @@ Route::post('/login', function() {
 	sleep(3);
     echo 1;
 });
+
+Route::resource('players', 'PlayersController');

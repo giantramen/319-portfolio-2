@@ -13,12 +13,12 @@ class CreateProPlayersTables extends Migration
     public function up()
     {
         Schema::create('players', function (Blueprint $table) {
+            $table->increments('id');
 			$table->string('name')->default('');
 			$table->integer('rank')->default(0);
 			$table->integer('playerID')->default(0);
 			$table->integer('leaguePoints')->default(0);
 			$table->integer('cost')->default(0);
-            $table->increments('id');
             $table->timestamps();
         });
     }
