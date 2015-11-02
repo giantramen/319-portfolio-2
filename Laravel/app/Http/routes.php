@@ -22,27 +22,28 @@ Route::get('/start', function() {
 Route::post('/login', function() {
 	$username = Input::get('username');
 	$password = Input::get('password');
-	$exists = true;
-	//check for username/password
-	if($exists) {
+	$exists = DB::table('users')->where('username', $username)->where('password', $password)->first();
+	if(is_null($exists)) {
+		sleep(1);
+    	echo 1;
+	} else {
 		//start session or whatever
 		//return Redirect::route('/');
-	} 
-	sleep(3);
-    echo 1;
+	}
 });
 
 Route::post('/register', function() {
 	$username = Input::get('username');
 	$password = Input::get('password');
-	$exists = true;
-	//check for username/password
-	if($exists) {
+	$exists = DB::table('users')->where('username', $username)->first();
+	if(is_null($exists)) {
+		DB::table('users')->insert(['username' => $username, 'password' => $password]);
 		//start session or whatever
 		//return Redirect::route('/');
-	} 
-	sleep(3);
-    echo 1;
+	} else {
+		sleep(1);
+    	echo 1;
+	}
 });
 
 Route::resource('players', 'PlayersController');

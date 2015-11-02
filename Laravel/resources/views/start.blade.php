@@ -83,8 +83,10 @@
     		var token = $("#token").val();
     		$.post("/login", {_token:token, username:username, password:password}, function(result) {
     			if(result) {
+    				console.log(result);
     				$(".input-group").show();
     				$(".spinner").hide();
+    				$(".message").text("Invalid Credentials");
     				$(".alert").show();
     			}
     		});
@@ -100,6 +102,7 @@
     			if(result) {
     				$(".input-group").show();
     				$(".spinner").hide();
+    				$(".message").text("Username Taken");
     				$(".alert").show();
     			}
     		});
@@ -147,7 +150,7 @@
 					</div>
 					<div class="alert alert-danger alert-dismissible fade in red" role="alert">
 				      <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>
-				      <h4>Login Failed</h4>
+				      <h4 class="message">Login Failed</h4>
 				    </div>
 				</div>
   			</div>
