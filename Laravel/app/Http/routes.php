@@ -44,3 +44,5 @@ Route::post('/register', function() {
 	sleep(3);
     echo 1;
 });
+
+Route::resource('players', 'PlayersController');
