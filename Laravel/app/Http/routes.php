@@ -15,11 +15,24 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/login', function() {
-    return view('login');
+Route::get('/start', function() {
+    return view('start');
 });
 
 Route::post('/login', function() {
+	$username = Input::get('username');
+	$password = Input::get('password');
+	$exists = true;
+	//check for username/password
+	if($exists) {
+		//start session or whatever
+		//return Redirect::route('/');
+	} 
+	sleep(3);
+    echo 1;
+});
+
+Route::post('/register', function() {
 	$username = Input::get('username');
 	$password = Input::get('password');
 	$exists = true;
