@@ -11,6 +11,8 @@
 |
 */
 Route::model('players', 'Player');
+Route::model('lobbies', 'Lobby');
+
 
 Route::get('/', function () {
     return view('welcome');
@@ -22,6 +24,10 @@ Route::get('/start', function() {
 
 Route::bind('players', function($value, $route) {
 	return App\Players::whereSlug($value)->first();
+});
+
+Route::bind('lobbies', function($value, $route) {
+	return App\Lobbies::whereSlug($value)->first();
 });
 
 Route::post('/login', function() {
@@ -52,3 +58,5 @@ Route::post('/register', function() {
 });
 
 Route::resource('players', 'PlayersController');
+Route::resource('lobbies', 'LobbiesController');
+
