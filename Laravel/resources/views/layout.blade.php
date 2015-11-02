@@ -15,6 +15,9 @@
           padding: 40px 15px;
           text-align: center;
         }
+		.table.db-table { border-right:1px solid #ccc; border-bottom:1px solid #ccc; }
+		.table.db-table th	{ background:#eee; padding:5px; border-left:1px solid #ccc; border-top:1px solid #ccc; }
+		.table.db-table td	{ padding:5px; border-left:1px solid #ccc; border-top:1px solid #ccc; }
     </style>
   </head>
   <body>

@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
+use App\Players;
+
 class PlayersController extends Controller
 {
     /**
@@ -16,7 +18,9 @@ class PlayersController extends Controller
      */
     public function index()
     {
-        return view('players.index');
+		$players = Players::all();
+		$moneyAvailible = 5000;
+        return view('players.index', compact('players'), compact('moneyAvailible'));
     }
 
     /**
@@ -26,7 +30,7 @@ class PlayersController extends Controller
      */
     public function create()
     {
-        //
+        return view ('projects.create');
     }
 
     /**
@@ -46,9 +50,9 @@ class PlayersController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Players $players)
     {
-        //
+        return view('players.index', compact('players'));
     }
 
     /**
@@ -57,9 +61,9 @@ class PlayersController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Players $players)
     {
-        //
+        return view('players.index', compact('players'));
     }
 
     /**
