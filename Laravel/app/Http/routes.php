@@ -73,4 +73,24 @@ Route::post('/register', function() {
 	}
 });
 
+Route::post('/entry', function() {
+	$players = Input::get('players');
+	$error = false; $sum = 0;
+	foreach ($players as $player) {
+		$exists = DB::table('players')->where('id', $player)->value('cost');
+		if(is_null($exists)) {
+			$error = true;
+		} else {
+			$sum += $exists;
+		}
+	}
+	if($sum > 5000) $error = true;
+	if($error) {
+		sleep(1);
+    	echo 2;
+	} else {
+		sleep(1);
+    	echo 1;
+	}
+});
 

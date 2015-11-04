@@ -359,6 +359,7 @@
 			});
 
 			$("#submit").click(function() {
+				$(".modal-footer").show();
 				$(".final-submit").addClass("disabled");
 				$(".alert-hide").hide();
 				var check1 = checkPlayers();
@@ -381,13 +382,27 @@
 					$(".alert-hide").hide();
 					$(".spinner").show();
 					var token = $("#token").val();
-					$.post("/entry", {_token:token, match:match}, function(result) {
+					var players = [];
+					$(".entry-row").each(function(index) {
+						players[index] = parseInt($(this).find(".holder").text());
+					});
+					console.log(players);
+					$.post("/entry", {_token:token, players:players}, function(result) {
+						console.log(result);
 		    			if(result == 1) {
 		    				$(".alert-hide").hide();
-		    				$(".submit-success").show();
+		    				$(".modal-footer").hide();
+		    				$(".submission-success").show();
+						   $(".alert-hide").promise().done(function() {
+						   		setTimeout(function(){ $('#submitModal').modal('toggle'); }, 2000);
+						   });
 		    			} else if(result == 2) {
 		    				$(".alert-hide").hide();
+		    				$(".modal-footer").hide();
 		    				$(".alert-fail").show();
+		    				$(".alert-hide").promise().done(function() {
+						   		setTimeout(function(){ $('#submitModal').modal('toggle'); }, 2000);
+						   });
 		    			}
 		    		});
 					$(".submit-success").show();
