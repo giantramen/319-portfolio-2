@@ -10,8 +10,13 @@
 | and give it the controller to call when that URI is requested.
 |
 */
+use Illuminate\Support\Facades\Redirect;
+use Illuminate\Http\Request;
+
+use App\Http\Requests;
+use App\Http\Controllers\Controller;
+
 Route::model('players', 'Player');
-Route::model('lobbies', 'Lobby');
 
 
 Route::get('/', function () {
@@ -30,18 +35,26 @@ Route::bind('players', function($value, $route) {
 	return App\Players::whereSlug($value)->first();
 });
 
+Route::get('login', array('uses' => 'HomeController@showLogin'));
+
+// route to process the form
+Route::post('login', array('uses' => 'HomeController@doLogin'));
+
+Route::resource('players', 'PlayersController');
+Route::resource('lobbies', 'LobbiesController');
+
 
 Route::post('/login', function() {
 	$username = Input::get('username');
 	$password = Input::get('password');
-	$exists = DB::table('users')->where('username', $username)->where('password', $password)->first();
+	$exists = DB::table('users')->where('username', $username)->where('password', $password)->get();
 	if(is_null($exists)) {
 		sleep(1);
     	echo 1;
 	} else {
-		//session_start();
-		//$_SESSION["userID"] = $exists->ID;
-		return view('lobbies');
+		session_start();
+		$_SESSION["userID"] = $username;
+		Redirect::to('lobbies');
 	}
 });
 
@@ -52,7 +65,7 @@ Route::post('/register', function() {
 	if(is_null($exists)) {
 		DB::table('users')->insert(['username' => $username, 'password' => $password]);
 		session_start();
-		$_SESSION["userID"] = $exists->ID;
+		$_SESSION["username"] = $username;
 		return Redirect::route('/lobbies');
 	} else {
 		sleep(1);
@@ -60,6 +73,4 @@ Route::post('/register', function() {
 	}
 });
 
-Route::resource('players', 'PlayersController');
-Route::resource('lobbies', 'LobbiesController');
 

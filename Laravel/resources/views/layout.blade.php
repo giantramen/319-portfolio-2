@@ -8,7 +8,15 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" integrity="sha512-dTfge/zgoMYpP7QbHy4gWMEGsbsdZeCXz7irItjcC3sPUFtf0kuFbDz/ixG7ArTxmDjLXDmezHubeNikyKGVyQ==" crossorigin="anonymous">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js" integrity="sha512-K1qjQ+NcF2TYO/eI3M6v8EiNYZfA95pQumfvcVrTHtwQVDG+aHRqLi/ETn2uB+1JqwYqVG3LIvdm9lj6imS/pQ==" crossorigin="anonymous"></script>
-    <style>
+    <script>
+	$(document).ready(function(){
+    $('#navbarU li').click(function (e){
+        $('#navbaru li.active').removeClass('active');
+        $(this).addClass('active');
+    });         
+	});
+	</script>
+	<style>
         body {
           padding-top: 50px;
         }
@@ -34,8 +42,10 @@
           <a class="navbar-brand" href="#">DFG</a>
         </div>
         <div id="navbar" class="collapse navbar-collapse">
-          <ul class="nav navbar-nav">
+          <ul id="navbarU" class="nav navbar-nav">
             <li class="active"><a href="#">Home</a></li>
+			<li><a href="lobbies">Lobbies</a></li>
+			<li><a href="#YourGames">Your Games</a></li>
             <li><a href="#about">About</a></li>
             <li><a href="#contact">Contact</a></li>
           </ul>

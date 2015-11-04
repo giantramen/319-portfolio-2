@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Redirect;
 
 use App\Lobbies;
 
@@ -21,6 +22,11 @@ class LobbiesController extends Controller
         $lobbies = Lobbies::all();
         return view('lobbies.index', compact('lobbies'));
     }
+	
+	public function join(int $lobby)
+	{
+		
+	}
 
     /**
      * Show the form for creating a new resource.
@@ -60,11 +66,23 @@ class LobbiesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(Request $request)
+    public function edit($id)
     {
-        return view('lobbies.index', compact('lobbies'));
-    }
+		$lobby = Lobbies::find($id);
+		
+		if ($lobby->numberOfPlayers == 0){
+			$lobby->player1 = $_SESSION["userID"];
+			$lobby->numberOfPlayers = 1;
+		}
+		else{
+			$lobby->player2 = $_SESSION["userID"];
+			$lobby->numberOfPlayers = 2;
+		}
+		$lobby->save();
 
+		// redirect
+		return Redirect::to('players');
+	}
     /**
      * Update the specified resource in storage.
      *
