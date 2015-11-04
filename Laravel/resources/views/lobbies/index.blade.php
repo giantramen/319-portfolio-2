@@ -26,7 +26,9 @@
 						<th>Player 2</th>
 						
 					</tr>
+					
 					@foreach($lobbies as $lobby)
+					@if ($lobby->numberOfPlayers != 2)
 							<tr>
 								<th>{{$lobby->id}}</th>
 								<th>{{$lobby->matchType}}</th>
@@ -35,11 +37,13 @@
 								<th>{{$lobby->numberOfPlayers}}/2</th>
 								<th>{{$lobby->player1ID}}</th>
 								<th>{{$lobby->player2ID}}</th>
-								<th><input id="joinLobby" type="button" value="Join Lobby"/></th>
+								<th><input type="button" value="Join Lobby" href="{{ URL::to('lobbies/' . $lobby->id . '/edit') }}"</th>
 							</tr>
+					@endif
 					@endforeach
 				</table>
 			</div>
 		</div>
     @endif
 @endsection
+
