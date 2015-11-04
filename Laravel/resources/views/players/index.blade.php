@@ -25,6 +25,69 @@
 		.sortclass {
 			cursor: pointer;
 		}
+		.entry-height {
+			min-height: 47px;
+			height: 47px;
+		}
+		.entry-row {
+			min-height: 47px;
+			height: 47px;
+		}
+		.left {
+			padding-left: 10px;
+		}
+		.right {
+			padding-right: 10px;
+		}
+		.green > .panel-heading {
+			background-color: #55B64F !important;
+			border-color: #5EB84C !important;
+		}
+		.red > .panel-heading {
+			background-color: #D9544B !important;
+			border-color: #D9544B !important;
+		}
+		.negative {
+			display: none;
+		}
+		.spinner {
+		  width: 143px;
+		  height: 143px;
+		  position: relative;
+		  margin: 20px auto;
+		}
+		.double-bounce1, .double-bounce2 {
+		  width: 100%;
+		  height: 100%;
+		  border-radius: 50%;
+		  background-color: #3279BC;
+		  opacity: 0.6;
+		  position: absolute;
+		  top: 0;
+		  left: 0;
+		  
+		  -webkit-animation: sk-bounce 2.0s infinite ease-in-out;
+		  animation: sk-bounce 2.0s infinite ease-in-out;
+		}
+		.double-bounce2 {
+		  -webkit-animation-delay: -1.0s;
+		  animation-delay: -1.0s;
+		}
+
+		@-webkit-keyframes sk-bounce {
+		  0%, 100% { -webkit-transform: scale(0.0) }
+		  50% { -webkit-transform: scale(1.0) }
+		}
+
+		@keyframes sk-bounce {
+		  0%, 100% { 
+		    transform: scale(0.0);
+		    -webkit-transform: scale(0.0);
+		  } 50% { 
+		    transform: scale(1.0);
+		    -webkit-transform: scale(1.0);
+		  }
+		}
     </style>
 	
 @extends('layout')
@@ -32,12 +95,12 @@
 @section('content')
 		<div class="container-fluid">
 			<div class="row" style="margin-top: 30px;">
-	        <div class="col-md-1"></div>
-	        <div class="col-md-5 scroller">
+	        <input type="hidden" id="token" value="{{ csrf_token() }}">
+	        <div class="col-md-6 scroller left">
 	        	<table id="maintable" cellpadding="5" cellspacing="0" class="table table-bordered table-hover">
 	        		<tr>
 						<th>
-							<div class="input-group">
+							<div class="input-group" style="margin:auto;">
 							    <div class="input-group">
 								  <span class="input-group-addon" id="basic-addon1"><span class="glyphicon glyphicon-search"></span></span>
 								  <input id="search" type="text" class="form-control" placeholder="Players" aria-describedby="basic-addon1">
@@ -83,24 +146,40 @@
 					@endforeach
 				</table>
 			</div>
-			<div class="col-md-5">
-				<div class="panel panel-primary">
-					<div class="panel-heading">Your Entry</div>
-					  <div class="panel-body">
-					    <div class="col-md-4">1/5</div>
-					    <div class="col-md-4">$600</div>
-					    <div class="col-md-4">2000</div>
-					 </div>
-				</div>
+			<div class="col-md-6 right">
+						<div class="col-md-8" style="padding-left:0px;">
+							<div class="panel panel-primary" style="text-align:center;">
+								<div class="panel-heading" style="color: white;">Match Details</div>
+								  <div class="panel-body" style="padding:5px;">
+									  <div class="col-md-4" style="padding:2px;padding-top:0px;">
+									  Type</br><span class="badge">Open</span>
+									  </div>
+									  <div class="col-md-4" style="padding:2px;padding-top:0px;">
+									  	Entries</br><span class="badge">14</span>
+									  </div>
+									  <div class="col-md-4" style="padding:2px;padding-top:0px;">
+									  	Deadline</br><span class="badge">12/11/15</span>
+									  </div>
+								 </div>
+							</div>
+						</div>
+						<div class="col-md-4" style="padding-right:0px;">
+							<div class="panel panel-default green moneyPanel" style="text-align:center;">
+								<div class="panel-heading" style="color: white;">Money</div>
+								  <div class="panel-body">
+								  	<span class="negative">-</span>$<span class="money">5000</span>
+								 </div>
+							</div>
+						</div>
 	        	<table id="entry" cellpadding="5" cellspacing="0" class="table table-bordered table-hover">
 					<tr>
-						<th>Player</th>
+						<th style="min-width: 160px;">Player</th>
 						<th>Cost</th>
 						<th>League Points</th>
 						<th>Add/Drop</th>
 					</tr>
 						<tr id="entry-one" class="entry-row">
-							<td class="holder"></td>
+							<td class="holder entry-height"></td>
 							<td class="player">-</td>
 							<td class="cost">-</td>
 							<td class="points">-</td>
@@ -110,7 +189,7 @@
 							</td>
 						</tr>
 						<tr id="entry-two" class="entry-row">
-							<td class="holder"></td>
+							<td class="holder entry-height"></td>
 							<td class="player">-</td>
 							<td class="cost">-</td>
 							<td class="points">-</td>
@@ -120,7 +199,7 @@
 							</td>
 						</tr>
 						<tr id="entry-three" class="entry-row">
-							<td class="holder"></td>
+							<td class="holder entry-height"></td>
 							<td class="player">-</td>
 							<td class="cost">-</td>
 							<td class="points">-</td>
@@ -130,7 +209,7 @@
 							</td>
 						</tr>
 						<tr id="entry-four" class="entry-row">
-							<td class="holder"></td>
+							<td class="holder entry-height"></td>
 							<td class="player">-</td>
 							<td class="cost">-</td>
 							<td class="points">-</td>
@@ -140,7 +219,7 @@
 							</td>
 						</tr>
 						<tr id="entry-five" class="entry-row">
-							<td class="holder"></td>
+							<td class="holder entry-height"></td>
 							<td class="player">-</td>
 							<td class="cost">-</td>
 							<td class="points">-</td>
@@ -150,12 +229,41 @@
 							</td>
 						</tr>
 				</table>
-				<p class="input-group" style="padding-top: 5px; margin:auto;">
-					<button id="submit" type="button" class="btn btn-primary btn-lg">Submit</button>
+				<p class="input-group" style="padding-top: 5px; margin:auto; margin-bottom: 20px;">
+					<button id="submit" type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#submitModal">Submit</button>
 				</p>
 			</div>
-			<div class="col-md-1"></div>
+			
 			</div>
+			<div id="submitModal" class="modal fade" role="dialog" aria-labelledby="gridSystemModalLabel">
+			  <div class="modal-dialog" role="document">
+			    <div class="modal-content">
+			      <div class="modal-header">
+			        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+			        <h4 class="modal-title" id="gridSystemModalLabel" style="text-align:center;">Submit Entry</h4>
+			      </div>
+			      <div class="modal-body">
+			        <div class="row">
+			          	<div class="col-md-12">
+			          		<div class="alert alert-danger alert-players alert-hide" role="alert" style="text-align:center;display:none;margin-bottom:4px;">Error: Not All Player Slots Are Filled</div>
+							<div class="alert alert-danger alert-money alert-hide" role="alert" style="text-align:center;display:none;margin-bottom:4px;">Error: Maximum Salary Exceeded</div>
+							<div class="alert alert-info alert-normal alert-hide" role="alert" style="text-align:center;margin-bottom:4px;display:none;">All Submissions Are Final</div>
+							<div class="alert alert-success submission-success alert-hide" role="alert" style="text-align:center;margin-bottom:4px;display:none;">Successful Submission</div>
+							<div class="alert alert-danger alert-fail alert-hide" role="alert" style="text-align:center;margin-bottom:4px;display:none;">Error: Submission Failure, Please Try Again</div>
+							<div class="spinner alert-hide">
+							  <div class="double-bounce1"></div>
+							  <div class="double-bounce2"></div>
+							</div>
+						</div>
+			        </div>
+			      </div>
+			      <div class="modal-footer" style="text-align: center;">
+			        <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
+			        <button type="button" class="btn btn-success final-submit">Submit</button>
+			      </div>
+			    </div><!-- /.modal-content -->
+			  </div><!-- /.modal-dialog -->
+			</div><!-- /.modal -->
 		</div>
 		<script>
 		$(document).ready(function() {
@@ -179,6 +287,7 @@
 							$(selected).find(".dash").hide();
 							$(selected).find(".drop-player").show();
 							placed = true;
+							countMoney();
 						}
 					}
 				}	
@@ -194,6 +303,7 @@
 				$(row).find(".points").text("-");
 				$(row).find(".dash").show();
 				$(row).find(".drop-player").hide();
+				countMoney();
 			});
 
 			$(".sort-direction").on("click", function() {
@@ -214,7 +324,6 @@
 
 			$(".sortselect").on("click", function() {
 				var id = $(this).attr("id");
-				console.log(id);
 				var value = 1;
 				$(".active-sort").removeClass("active-sort");
 				if(id === "costsort") {
@@ -226,7 +335,7 @@
 				} else {
 					$("#namesort").addClass("active-sort");
 				}
-				if($("#up").hasClass(".sort-choose")) {
+				if($("#up").hasClass("sort-choose")) {
 					var array = sorter($(".hiderows"), 1, value);
 					appendIt(array, 1);
 				} else {
@@ -247,6 +356,47 @@
 		                $(this).show();
 		            }
 			    });
+			});
+
+			$("#submit").click(function() {
+				$(".final-submit").addClass("disabled");
+				$(".alert-hide").hide();
+				var check1 = checkPlayers();
+				var check2 = checkMoney();
+				console.log(check1, check2);
+				if(check1 == true && check2 == true) {
+					$(".alert-normal").show();
+					$(".final-submit").removeClass("disabled");
+				} else {
+					$(".alert-hide").hide();
+					if(!check1) $(".alert-players").show();
+					if(!check2) $(".alert-money").show();
+				}
+			});
+
+			$(".final-submit").click(function() {
+				var check1 = checkPlayers();
+				var check2 = checkMoney();
+				if(check1 == true && check2 == true) {
+					$(".alert-hide").hide();
+					$(".spinner").show();
+					var token = $("#token").val();
+					$.post("/entry", {_token:token, match:match}, function(result) {
+		    			if(result == 1) {
+		    				$(".alert-hide").hide();
+		    				$(".submit-success").show();
+		    			} else if(result == 2) {
+		    				$(".alert-hide").hide();
+		    				$(".alert-fail").show();
+		    			}
+		    		});
+					$(".submit-success").show();
+					$(".alert-error").show();
+				} else {
+					$(".alert-hide").hide();
+					if(!check1) $(".alert-players").show();
+					if(!check2) $(".alert-money").show();
+				}
 			});
 
 			function sorter(array, direction, value) {
@@ -289,6 +439,36 @@
 				} else {
 					$("#maintable").append(array);
 				}
+			}
+
+			function countMoney() {
+				var total = 5000;
+				var sum = 0;
+				for(var i = 0; i < 5; i++) {
+					var selected = $(".entry-row")[i];
+					if($(selected).hasClass("taken")) {
+						sum += parseInt($(selected).find(".cost").text().replace("$",""));
+					}
+				}
+				var newTotal = total - sum;
+				if(newTotal < 0) {
+					$(".moneyPanel").removeClass("green").addClass("red");
+					$(".negative").show();
+				} else {
+					$(".moneyPanel").addClass("green").removeClass("red");
+					$(".negative").hide();
+				}
+				$(".money").text(Math.abs(newTotal));
+			}
+
+			function checkMoney() {
+				if($(".negative").is(":visible")) return false;
+				return true;
+			}
+
+			function checkPlayers() {
+				if($(".taken").length == 5) return true
+				return false;
 			}
 
 		});

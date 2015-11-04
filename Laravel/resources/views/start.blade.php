@@ -143,9 +143,9 @@
 							<button id="register" type="button" class="btn btn-primary btn-lg">Register</button>
 	  						<button id="submit" type="button" class="btn btn-primary btn-lg">Sign In</button>
   							<div class="spinner" style="display: none;">
-							  <div class="double-bounce1"></div>
-							  <div class="double-bounce2"></div>
-							</div>
+							   <div class="double-bounce1"></div>
+							   <div class="double-bounce2"></div>
+							 </div>
 						</p>
 					</div>
 					<div class="alert alert-danger alert-dismissible fade in red" role="alert">
