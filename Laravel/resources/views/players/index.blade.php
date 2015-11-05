@@ -152,10 +152,14 @@
 								<div class="panel-heading" style="color: white;">Match Details</div>
 								  <div class="panel-body" style="padding:5px;">
 									  <div class="col-md-4" style="padding:2px;padding-top:0px;">
-									  Type</br><span class="badge">Open</span>
+									  Type</br><span class="badge">H2H</span>
 									  </div>
 									  <div class="col-md-4" style="padding:2px;padding-top:0px;">
-									  	Entries</br><span class="badge">14</span>
+									    <?php 
+									    $temp = explode(" ", $lobbies->startTime);
+									    $temp2 = $temp[0];
+									    ?>
+									  	Start</br><span class="badge">{{$temp2}}</span>
 									  </div>
 									  <div class="col-md-4" style="padding:2px;padding-top:0px;">
 									  	Deadline</br><span class="badge">12/11/15</span>
@@ -364,7 +368,6 @@
 				$(".alert-hide").hide();
 				var check1 = checkPlayers();
 				var check2 = checkMoney();
-				console.log(check1, check2);
 				if(check1 == true && check2 == true) {
 					$(".alert-normal").show();
 					$(".final-submit").removeClass("disabled");
@@ -383,18 +386,18 @@
 					$(".spinner").show();
 					var token = $("#token").val();
 					var players = [];
+					var matchid = window.location.href.split('/').pop();
 					$(".entry-row").each(function(index) {
 						players[index] = parseInt($(this).find(".holder").text());
 					});
-					console.log(players);
-					$.post("/entry", {_token:token, players:players}, function(result) {
+					$.post("/entry", {_token:token, players:players, id:matchid}, function(result) {
 						console.log(result);
 		    			if(result == 1) {
 		    				$(".alert-hide").hide();
 		    				$(".modal-footer").hide();
 		    				$(".submission-success").show();
 						   $(".alert-hide").promise().done(function() {
-						   		setTimeout(function(){ $('#submitModal').modal('toggle'); }, 2000);
+						   		setTimeout(function(){ window.location.replace("/joined") }, 2000);
 						   });
 		    			} else if(result == 2) {
 		    				$(".alert-hide").hide();

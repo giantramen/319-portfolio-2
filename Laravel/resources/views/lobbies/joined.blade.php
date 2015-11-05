@@ -9,8 +9,8 @@
 @section('content')
 		<div class="container-fluid">
 			<h2>Lobbies</h2>
-	    	@if ( !$lobbies->count() )
-	        	You have no players availible
+	    	@if ( count($lobbies) < 1 )
+	        	You have no players available
 	    	@else
 			<div class="row" style="margin-top: 30px;">
 	        <div class="col-md-1"></div>
@@ -24,7 +24,6 @@
 						<th>Number of Players</th>
 						<th>Player 1</th>
 						<th>Player 2</th>
-						
 					</tr>
 					
 					@foreach($lobbies as $lobby)
@@ -37,7 +36,7 @@
 								<th>{{$lobby->numberOfPlayers}}/2</th>
 								<th>{{$lobby->player1ID}}</th>
 								<th>{{$lobby->player2ID}}</th>
-								<th><input type="button" value="View Lobby" href="{{ URL::to('lobbies/' . $lobby->id . '/show') }}"</th>
+								<th><input type="button" value="View Lobby" href="{{ URL::to('/' . $lobby->id . '/show') }}"</th>
 							</tr>
 					@endif
 					@endforeach

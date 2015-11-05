@@ -20,9 +20,9 @@ class PlayersController extends Controller
     public function index($id)
     {
 		$players = Players::all();
-		$moneyAvailible = 5000;
+		$moneyAvailable = 5000;
 		$lobby = Lobbies::find($id);
-        return view('players.index', compact('players'), compact('moneyAvailible'), compact ('lobby'));
+        return view('players.index', compact('players'), compact('moneyAvailable'), compact ('lobby'));
     }
 
     /**

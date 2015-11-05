@@ -25,7 +25,8 @@ class LobbiesController extends Controller
 	
 	public function join(int $lobby)
 	{
-		
+        $lobbies = Lobbies::all();
+		return view('lobbies.joined', compact('lobbies'));
 	}
 
     /**

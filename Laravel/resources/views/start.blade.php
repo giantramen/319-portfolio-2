@@ -82,13 +82,15 @@
     		var password = $("#pass").val();
     		var token = $("#token").val();
     		$.post("/login", {_token:token, username:username, password:password}, function(result) {
-    			if(result) {
+    			if(result == 1) {
     				console.log(result);
     				$(".input-group").show();
     				$(".spinner").hide();
     				$(".message").text("Invalid Credentials");
     				$(".alert").show();
-    			}
+    			} else if(result == 2) {
+            window.location.replace("/lobbies");
+          }
     		});
     	});
 
@@ -99,12 +101,15 @@
     		var password = $("#pass").val();
     		var token = $("#token").val();
     		$.post("/register", {_token:token, username:username, password:password}, function(result) {
-    			if(result) {
+    			if(result == 1) {
+            console.log(result);
     				$(".input-group").show();
     				$(".spinner").hide();
     				$(".message").text("Username Taken");
     				$(".alert").show();
-    			}
+    			} else if(result == 2) {
+            window.location.replace("/lobbies");
+          }
     		});
     	});
 
