@@ -16,11 +16,11 @@ class PlayersController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Lobby $lobby)
     {
 		$players = Players::all();
 		$moneyAvailible = 5000;
-        return view('players.index', compact('players'), compact('moneyAvailible'));
+        return view('players.index', compact('players'), compact('moneyAvailible'), compact ('lobby'));
     }
 
     /**

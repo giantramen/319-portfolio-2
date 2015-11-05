@@ -55,9 +55,26 @@ class LobbiesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Request $request)
+    public function show($id)
     {
-        return view('lobbies.index', compact('lobbies'));
+		$lobby = Lobbies::find($id);
+		$player1_players = array(
+					$player1 = lobby->player1_1,
+					$player2 = lobby->player1_2,
+					$player3 = lobby->player1_3,
+					$player4 = lobby->player1_4,
+					$player5 = lobby->player1_5,
+		);
+		
+		$player2_players = array(
+					$player1 = lobby->player2_1,
+					$player2 = lobby->player2_2,
+					$player3 = lobby->player2_3,
+					$player4 = lobby->player2_4,
+					$player5 = lobby->player2_5,
+		);
+					
+        return view('lobbies.results', compact('player1_players'), compact('player2_players'), compact('lobby'));
     }
 
     /**
