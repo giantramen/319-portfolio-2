@@ -14,13 +14,13 @@ use Illuminate\Support\Facades\Redirect;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
+use App\Players;
 use App\Http\Controllers\Controller;
 
 Route::model('players', 'Player');
 
-
 Route::get('/', function () {
-    return view('welcome');
+    return view('start');
 });
 
 Route::get('/start', function() {
@@ -31,14 +31,9 @@ Route::get('/lobbies', function() {
     return view('lobbies');
 });
 
-Route::bind('players', function($value, $route) {
-	return App\Players::whereSlug($value)->first();
+Route::get('/players', function() {
+	return view('players');
 });
-
-Route::get('login', array('uses' => 'HomeController@showLogin'));
-
-// route to process the form
-Route::post('login', array('uses' => 'HomeController@doLogin'));
 
 Route::resource('players', 'PlayersController');
 Route::resource('lobbies', 'LobbiesController');
@@ -75,7 +70,7 @@ Route::post('/register', function() {
 
 Route::post('/entry', function() {
 	$players = Input::get('players');
-	$error = false; $sum = 0;
+	$error = false; $sum = 0;	
 	foreach ($players as $player) {
 		$exists = DB::table('players')->where('id', $player)->value('cost');
 		if(is_null($exists)) {

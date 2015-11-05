@@ -8,6 +8,7 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
 use App\Players;
+use App\Lobbies;
 
 class PlayersController extends Controller
 {
@@ -16,10 +17,11 @@ class PlayersController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Lobby $lobby)
+    public function index($id)
     {
 		$players = Players::all();
 		$moneyAvailible = 5000;
+		$lobby = Lobbies::find($id);
         return view('players.index', compact('players'), compact('moneyAvailible'), compact ('lobby'));
     }
 
