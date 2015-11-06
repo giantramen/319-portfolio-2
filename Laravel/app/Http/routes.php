@@ -56,7 +56,7 @@ Route::get('/joined', function() {
 Route::post('/login', function() {
 	$username = Input::get('username');
 	$password = Input::get('password');
-	$exists = DB::table('allusers')->where('id', $username)->where('id', $password)->first();
+	$exists = DB::table('allusers')->where('username', $username)->where('password', $password)->first();
 	if(is_null($exists)) {
 		sleep(1);
     	echo 1;
@@ -83,6 +83,7 @@ Route::post('/register', function() {
 });
 
 Route::post('/entry', function() {
+	session_start();
 	$players = Input::get('players');
 	$id = Input::get('id');
 	$error = false; $sum = 0;	
@@ -102,28 +103,41 @@ Route::post('/entry', function() {
 		sleep(1);
 		$nexterror = false;
 		$lobby = DB::table('lobbies')->where('id', $id)->first();
+		var_dump($lobby);
 		if(!is_null($lobby)) {
 			if($lobby->numberOfPlayers > 1) {
 				$nexterror = true;
 			} else {
 				$playerString = "player1";
 				if($lobby->player1ID > 0) $playerString = "player2";
-				$query = DB::table('lobbies')->where('id', $id)->update(['numberOfPlayers' => $lobby->$numberOfPlayers + 1,
-																$playerString + 'ID' => $_SESSION["username"],
-																$playerString + '_1' => $players[0],
-																$playerString + '_2' => $players[1],
-																$playerString + '_3' => $players[2],
-																$playerString + '_4' => $players[3],
-																$playerString + '_5' => $players[4]]);
+				$query = DB::table('lobbies')->where('id', $id)->update(array('numberOfPlayers' => $lobby->numberOfPlayers + 1,
+																$playerString.'ID' => $_SESSION["username"],
+																$playerString.'_1' => $players[0],
+																$playerString.'_2' => $players[1],
+																$playerString.'_3' => $players[2],
+																$playerString.'_4' => $players[3],
+																$playerString.'_5' => $players[4]));
 			}
 		} else {
 			$nexterror = true;
 		}
-		if($nexterror) {
-			echo 2;
-		} else {
-			echo 1;
-		}
+			$player1_players = array(
+						"player1" => $lobby->player1_1,
+						"player2" => $lobby->player1_2,
+						"player3" => $lobby->player1_3,
+						"player4" => $lobby->player1_4,
+						"player5" => $lobby->player1_5,
+			);
+			
+			$player2_players = array(
+						"player1" => $lobby->player2_1,
+						"player2" => $lobby->player2_2,
+						"player3" => $lobby->player2_3,
+						"player4" => $lobby->player2_4,
+						"player5" => $lobby->player2_5,
+			);
+					
+        return view('lobbies.results', compact('player1_players'), compact('player2_players'), compact('lobby'));
     }
 
 });
