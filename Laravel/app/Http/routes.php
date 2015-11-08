@@ -54,6 +54,7 @@ Route::get('/joined', function() {
 });
 
 Route::post('/login', function() {
+	session_start();
 	$username = Input::get('username');
 	$password = Input::get('password');
 	$exists = DB::table('allusers')->where('id', $username)->where('id', $password)->first();
@@ -61,19 +62,18 @@ Route::post('/login', function() {
 		sleep(1);
     	echo 1;
 	} else {
-		session_start();
 		$_SESSION["username"] = $username;
 		echo 2;
 	}
 });
 
 Route::post('/register', function() {
+	session_start();
 	$username = Input::get('username');
 	$password = Input::get('password');
 	$exists = DB::table('allusers')->where('username', $username)->first();
 	if(is_null($exists)) {
 		DB::table('allusers')->insert(['username' => $username, 'password' => $password]);
-		session_start();
 		$_SESSION["username"] = $username;
 		echo 2;
 	} else {
@@ -83,6 +83,7 @@ Route::post('/register', function() {
 });
 
 Route::post('/entry', function() {
+	session_start();
 	$players = Input::get('players');
 	$id = Input::get('id');
 	$error = false; $sum = 0;	
@@ -108,13 +109,13 @@ Route::post('/entry', function() {
 			} else {
 				$playerString = "player1";
 				if($lobby->player1ID > 0) $playerString = "player2";
-				$query = DB::table('lobbies')->where('id', $id)->update(['numberOfPlayers' => $lobby->$numberOfPlayers + 1,
-																$playerString + 'ID' => $_SESSION["username"],
-																$playerString + '_1' => $players[0],
-																$playerString + '_2' => $players[1],
-																$playerString + '_3' => $players[2],
-																$playerString + '_4' => $players[3],
-																$playerString + '_5' => $players[4]]);
+				$query = DB::table('lobbies')->where('id', $id)->update(['numberOfPlayers' => $lobby->numberOfPlayers + 1,
+																$playerString.'ID' => $_SESSION["username"],
+																$playerString.'_1' => $players[0],
+																$playerString.'_2' => $players[1],
+																$playerString.'_3' => $players[2],
+																$playerString.'_4' => $players[3],
+																$playerString.'_5' => $players[4]]);
 			}
 		} else {
 			$nexterror = true;
@@ -128,3 +129,8 @@ Route::post('/entry', function() {
 
 });
 
+Route::get('/logout', function() {
+	session_start();
+	session_destroy();
+	return Redirect::to('/start');
+});
